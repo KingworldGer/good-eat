@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Магазин гамбургеров — Ручей</title>
+<meta name="description" content="Гамбургеры, Шаурма, Куры гриль. Быстро, вкусно, с доставкой.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent:#ff5722;
+  --dark:#1b1b1b;
+  --card-bg: rgba(255,255,255,0.05);
+  --rounded:18px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Сброс */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow-x:hidden;scroll-behavior:smooth;background:#111;color:#fff;}
+
+/* Фоновое изображение */
+body::before {
+  content:"";
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:url('1.jpg') center center/cover no-repeat;
+  z-index:-1;
+  filter:brightness(0.6);
+}
+
+/* Хедер */
+header{
+  position:sticky;top:0;padding:14px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);border-radius:var(--rounded);text-align:center;z-index:1000;
+}
+header h1{font-size:1.8em;margin-bottom:6px;}
+header p{font-size:0.95em;opacity:0.85;}
+
+/* Главная секция */
+.hero{padding:40px 20px;text-align:center;}
+.marquee-wrap{overflow:hidden;border-radius:12px;padding:10px;margin-top:16px;background:rgba(255,255,255,0.05);}
+.marquee{display:inline-block;white-space:nowrap;animation:marquee 20s linear infinite;font-weight:700;}
+@keyframes marquee{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+.marquee span{margin-right:40px;color:var(--accent);}
+
+/* Секции карточек */
+.image-container{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding:20px;}
+.image-box{
+  background:var(--card-bg);
+  border-radius:14px;
+  overflow:hidden;
+  width:150px;
+  height:150px;
+  position:relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.image-box:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.image-box img{width:100%;height:100%;object-fit:cover;}
+.product-info{text-align:center;margin-top:6px;font-size:0.85em;}
+.product-info h2{font-size:1em;margin-bottom:4px;}
+.product-info .price{color:var(--accent);font-weight:700;margin-bottom:4px;}
+.cart-button{
+  padding:6px 12px;border:none;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer;transition:all 0.3s;font-size:0.8em;
+}
+.cart-button:hover{background:#e64a19;transform:scale(1.05);}
+
+/* Информационная секция */
+.info-section{
+  background:rgba(0,0,0,0.6);padding:20px;border-radius:18px;margin:20px auto;
+  max-width:600px;text-align:center;
+}
+.info-section h2{color:var(--accent);margin-bottom:10px;}
+.info-section p{margin:6px 0;font-size:0.9em;line-height:1.3;}
+
+/* Плавающая кнопка звонка */
+.floating-call{
+  position:fixed;bottom:20px;right:20px;
+  background:var(--accent);color:#fff;padding:14px 18px;border-radius:50px;font-weight:700;box-shadow:0 6px 18px rgba(255,87,34,0.5);z-index:1000;text-decoration:none;
+  transition:all 0.3s;font-size:0.9em;
+}
+.floating-call:hover{transform:scale(1.1);}
+
+/* Модальные изображения */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.8);z-index:2000;}
+.modal.open{display:flex;}
+.modal img{max-width:95%;max-height:92%;border-radius:12px;}
+
+/* Медиазапросы */
+@media(max-width:768px){
+  .image-box{width:120px;height:120px;}
+  .product-info h2{font-size:0.9em;}
+  .product-info .price{font-size:0.8em;}
+}
+@media(max-width:480px){
+  .image-box{width:100px;height:100px;}
+  .product-info h2{font-size:0.8em;}
+  .product-info .price{font-size:0.7em;}
+  .info-section{padding:14px;}
+  header h1{font-size:1.4em;}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Добро пожаловать в магазин у Мангала!</h1>
+<p>Найдите любимое блюдо и закажите прямо сейчас!</p>
+<div class="marquee-wrap"><div class="marquee">
+<span>Гамбургеры — 200 руб.</span>
+<span>Хот Дог — 150 руб.</span>
+<span>Шаурма — 250 руб.</span>
+<span>Кофе — от 50 руб.</span>
+<span>Картошка Фри — 100 руб.</span>
+<span>Наггетсы — 70 руб.</span>
+</div></div>
+</header>
+
+<div class="image-container">
+<!-- Пример карточек, можно продублировать для всех 48 изображений -->
+<div class="image-box">
+  <img src="2.jpg" alt="Гамбургер" onclick="openModal('2.jpg')">
+  <div class="product-info">
+    <h2>Гамбургер</h2>
+    <div class="price">200 руб.</div>
+    <button class="cart-button">Купить</button>
+  </div>
+</div>
+
+<div class="image-box">
+  <img src="3.jpg" alt="Хот Дог" onclick="openModal('3.jpg')">
+  <div class="product-info">
+    <h2>Хот Дог</h2>
+    <div class="price">150 руб.</div>
+    <button class="cart-button">Купить</button>
+  </div>
+</div>
+
+<div class="image-box">
+  <img src="4.jpg" alt="Шаурма" onclick="openModal('4.jpg')">
+  <div class="product-info">
+    <h2>Шаурма</h2>
+    <div class="price">250 руб.</div>
+    <button class="cart-button">Купить</button>
+  </div>
+</div>
+
+<div class="image-box">
+  <img src="5.jpg" alt="Кофе" onclick="openModal('5.jpg')">
+  <div class="product-info">
+    <h2>Кофе</h2>
+    <div class="price">50 руб.</div>
+    <button class="cart-button">Купить</button>
+  </div>
+</div>
+
+<!-- Остальные изображения добавляйте по аналогии -->
+</div>
+
+<div class="info-section">
+<h2>Информация о магазине</h2>
+<p><strong>Телефон:</strong> 8 (981) 178-64-44</p>
+<p><strong>Адрес:</strong> ул. Центральная, 1, Ковровский район, населенный пункт Ручей</p>
+<p><strong>Email:</strong> kingworldger@gmail.com</p>
+<p><strong>Доставка:</strong> Доставка из деревни Ручей 500 рублей</p>
+</div>
+
+<a href="tel:+79811786444" class="floating-call">Позвонить</a>
+
+<div class="modal" id="modal"><img id="modalImg" src=""></div>
+
+<script>
+function openModal(src){
+  const modal=document.getElementById('modal');
+  const modalImg=document.getElementById('modalImg');
+  modalImg.src=src;
+  modal.classList.add('open');
+}
+document.getElementById('modal').addEventListener('click',function(){
+  this.classList.remove('open');
+  document.getElementById('modalImg').src='';
+});
+</script>
+
+</body>
+</html>
